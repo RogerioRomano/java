@@ -20,19 +20,19 @@ public class ChatServer {
 
 	public static void main(final String[] args) {
 
-        System.out.println("To see chat in action is to open two different browsers and point them at http://172.23.4.1:8080");
+        System.out.println("To see chat in action is to open two different browsers and point them at http://localhost:8080");
         
         List<String> rooms = new ArrayList<String>();
-        rooms.add("amizade");
-        rooms.add("cidade");
-        System.out.println(rooms);
+        rooms.add("/amizade");
+        rooms.add("/cidade");
+        System.out.println(rooms.get(0));
     
         Undertow server = Undertow.builder()
-                .addHttpListener(8080, "172.23.4.1")
+                .addHttpListener(8080, "localhost")
                 
                 .setHandler(path()
                 		
-                        .addPrefixPath("/myapp", websocket(new WebSocketConnectionCallback() {
+                        .addPrefixPath(rooms.get(0), websocket(new WebSocketConnectionCallback() {
                             		
                             @Override
                             public void onConnect(WebSocketHttpExchange exchange, WebSocketChannel channel) {
